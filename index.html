@@ -14,6 +14,12 @@
 
         <!-- style sheet import -->
         <link href="/styles.css" rel="stylesheet" />
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router/5.0.1/react-router.min.js"></script>
+
+        <script src="main.js"></script>
+        <script src="UserAbout.js"></script>
+    
 </head>
 
     <body>
@@ -46,35 +52,48 @@
 
                 var ninjas = this.state.ninjas;
 
+                let UserId = function(ninja, index) {
+                    return(
+                        <li key={index}>
+                            <span className={ninja.available}></span>
+                            <span className="name">{ninja.name}</span>
+                            <span className="rank">{ninja.rank}</span>
+                            <span className="dist"><Link to="/user:id"></span>
+                            <span className="dist">{Math.floor(ninja.dist.calculated / 1000)} km</span>
+                        </li>
+            );
+        };
+
                 // function that displays the list of available users
-                ninjas = ninjas.map(function(ninja, index){
+               {/* ninjas = ninjas.map(item => <UserIdfunction(ninja, index){
                     
-                    // return the list element
+                     return the list element
                     return(
                         <li key={index}>
 
-                            {/* Availability */}
+                            Availability 
                             <span className={ninja.available}></span>
 
-                            {/* Name: string */}
+                             Name: string 
                             <span className="name">{ninja.name}</span>
 
-                            {/* Rank: string */}
+                             Rank: string 
                             <span className="rank">{ninja.rank}</span>
 
-                            {/* More info */}
-                            <span className="dist" ><a href="#">More</a></span>
+                             More info 
+                            <span className="dist"><Link to="/more">More</Link></span>
 
-                            {/* Distance */}
+                             Distance 
                             <span className="dist">{Math.floor(ninja.dist.calculated / 1000)} km</span> 
                         </li>
                     );
-                });
+                });*/}
+
 
                 return(
                     <div id="ninja-container">
 
-                        {/* Handle user's input  */}
+                        
                         <form id="search" onSubmit={this.handleSubmit}>
 
                             <label>Enter your Latitude:</label>
@@ -87,7 +106,7 @@
 
                         </form>
 
-                        {/* List with users / ninjas */}
+                        
                         <ul>{ninjas}</ul>
                     </div>
                 );
@@ -121,8 +140,16 @@
             }
         });
 
-        // tell the browser what to render
-        ReactDOM.render(<Ninjas />, document.getElementById('ninjas'));
+        {/*ReactDOM.render(<Ninjas />, document.getElementById('ninjas'));*/}
+        
+        ReactDOM.render((
+            <Router history={hashHistory}>
+                <Route path="/" component={Window}>
+                <Route path="search" component={Search} />
+                <Route path="more-info" component={MoreInfo} />
+                </Route>
+                </Router>
+        ), document.getElementById("ninja-container"));
         </script>
 
 
